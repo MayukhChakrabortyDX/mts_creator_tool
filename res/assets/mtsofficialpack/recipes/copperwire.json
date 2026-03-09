@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " a ",
+        "b b",
+        " a "
+    ],
+    "key": {
+        "a": {
+            "type": "forge:ore_dict",
+            "ore": "ingotGold"
+        },
+        "b": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        }
+    },
+    "result": {
+        "item": "mts:mtsofficialpack.copperwire",
+        "count": 8
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+    {
+      "type": "forge:ore_dict",
+            "ore": "nuggetIron"
+    },
+    {
+      "type": "forge:ore_dict",
+            "ore": "nuggetIron"
+    },
+    {
+      "type": "forge:ore_dict",
+            "ore": "nuggetIron"
+    },
+    {
+      "type": "forge:ore_dict",
+            "ore": "nuggetIron"
+    }
+  ],
+    "result": {
+        "item": "mts:mtsofficialpack.screws",
+        "count": 4
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "mtsofficialpack/MTSPackLoader": {
+    "name": "mtsofficialpack/MTSPackLoader",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventBusSubscriber;",
+        "target": "mtsofficialpack/MTSPackLoader"
+      },
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/Mod;",
+        "target": "mtsofficialpack/MTSPackLoader",
+        "values": {
+          "acceptedMinecraftVersions": {
+            "value": "[1.12.2,]"
+          },
+          "dependencies": {
+            "value": "required-after:mts@[19.0.0,);"
+          },
+          "modid": {
+            "value": "mtsofficialpack"
+          },
+          "name": {
+            "value": "Immersive Vehicles Recipe Engine"
+          },
+          "version": {
+            "value": "1.2"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "registerItems(Lnet/minecraftforge/event/RegistryEvent$Register;)V"
+      }
+    ]
+  }
+}
