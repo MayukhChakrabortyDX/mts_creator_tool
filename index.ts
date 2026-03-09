@@ -1,13 +1,10 @@
 import { ImageResource, MTSContentPack, MTSContentPackBuilder } from "./src";
-import { resources } from "./assets";
 
 //now let's create my content packs
 const motorsports = new MTSContentPack({
     packId: "f1_racing_equipment",
     packName: "F1 Racing Equipment",
 });
-
-resources.assets.mtsofficialpack.
 
 const builder = new MTSContentPackBuilder({
     contentPacks: [motorsports],
