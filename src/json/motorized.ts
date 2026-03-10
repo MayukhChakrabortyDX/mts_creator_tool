@@ -1,5 +1,6 @@
 //! REVIEW INCOMPLETE
 
+import { Expand } from "../utils/expand";
 import { JSONDefs, type Versions } from "./json";
 import { type AnimationVariable } from "./animationVariables";
 import { type MTSColor } from "./color";
@@ -506,7 +507,7 @@ export class Motorized extends JSONDefs {
     flapNotches?: number[];
     hookupVariables?: AnimationVariable[];
 
-    constructor(properties: Partial<MotorizedProps>) {
+    constructor(properties: Expand<Partial<MotorizedProps>>) {
         super();
         this.isAircraft              = properties.isAircraft;
         this.isBlimp                 = properties.isBlimp;

@@ -14,452 +14,474 @@
 // Global Variables
 // ---------------------------------------------------------------------------
 
-export const GlobalBinaryVariables = [
-    "text_X_present",
-    "inliquid",
-    "player_interacting",
-    "player_crafteditem",
-    "player_cursor_hovered",
-    "collision_X_player_cursor_hovered",
-    "random_flip",
-    "damage_totaled",
-    "collision_X_totaled",
-    "repainted",
-    "repaired",
-    "config_simplethrottle",
-    "config_innerwindows",
-    "radar_detected",
-    "radar_X_detected",
-    "blockname_NAME",
-    "blockmaterial_NAME",
-    "terrain_blockname_NAME",
-    "terrain_blockmaterial_NAME",
-    "XXX_YYY_ZZZ_cycle",
-    "radio_active",
-] as const;
+export enum GlobalBinaryVariable {
+    TextXPresent = "text_X_present",
+    InLiquid = "inliquid",
+    PlayerInteracting = "player_interacting",
+    PlayerCraftedItem = "player_crafteditem",
+    PlayerCursorHovered = "player_cursor_hovered",
+    CollisionXPlayerCursorHovered = "collision_X_player_cursor_hovered",
+    RandomFlip = "random_flip",
+    DamageTotaled = "damage_totaled",
+    CollisionXTotaled = "collision_X_totaled",
+    Repainted = "repainted",
+    Repaired = "repaired",
+    ConfigSimpleThrottle = "config_simplethrottle",
+    ConfigInnerWindows = "config_innerwindows",
+    RadarDetected = "radar_detected",
+    RadarXDetected = "radar_X_detected",
+    BlocknameName = "blockname_NAME",
+    BlockmaterialName = "blockmaterial_NAME",
+    TerrainBlocknameName = "terrain_blockname_NAME",
+    TerrainBlockmaterialName = "terrain_blockmaterial_NAME",
+    CycleXYZ = "XXX_YYY_ZZZ_cycle",
+    RadioActive = "radio_active",
+}
 
-export const GlobalAnalogVariables = [
-    "light_sunlight",
-    "light_total",
-    "snowfall_strength",
-    "rain_strength",
-    "rain_sin",
-    "rain_cos",
-    "tick",
-    "tick_sin",
-    "tick_cos",
-    "time",
-    "terrain_distance",
-    "posX",
-    "posY",
-    "posZ",
-    "damage",
-    "damage_percent",
-    "collision_X_damage",
-    "textureIndex",
-    "distance_client",
-    "orientation_client_x",
-    "orientation_client_y",
-    "orientation_client_z",
-    "random",
-    "radio_volume",
-    "radio_preset",
-    "radar_X_distance",
-    "radar_X_direction",
-    "radar_aircraft_X_distance",
-    "radar_aircraft_X_direction",
-    "radar_aircraft_X_speed",
-    "radar_aircraft_X_altitude",
-    "radar_aircraft_X_angle",
-    "radar_ground_X_distance",
-    "radar_ground_X_direction",
-    "radar_ground_X_speed",
-    "radar_ground_X_altitude",
-    "radar_ground_X_angle",
-] as const;
+export enum GlobalAnalogVariable {
+    LightSunlight = "light_sunlight",
+    LightTotal = "light_total",
+    SnowfallStrength = "snowfall_strength",
+    RainStrength = "rain_strength",
+    RainSin = "rain_sin",
+    RainCos = "rain_cos",
+    Tick = "tick",
+    TickSin = "tick_sin",
+    TickCos = "tick_cos",
+    Time = "time",
+    TerrainDistance = "terrain_distance",
+    PosX = "posX",
+    PosY = "posY",
+    PosZ = "posZ",
+    Damage = "damage",
+    DamagePercent = "damage_percent",
+    CollisionXDamage = "collision_X_damage",
+    TextureIndex = "textureIndex",
+    DistanceClient = "distance_client",
+    OrientationClientX = "orientation_client_x",
+    OrientationClientY = "orientation_client_y",
+    OrientationClientZ = "orientation_client_z",
+    Random = "random",
+    RadioVolume = "radio_volume",
+    RadioPreset = "radio_preset",
+    RadarXDistance = "radar_X_distance",
+    RadarXDirection = "radar_X_direction",
+    RadarAircraftXDistance = "radar_aircraft_X_distance",
+    RadarAircraftXDirection = "radar_aircraft_X_direction",
+    RadarAircraftXSpeed = "radar_aircraft_X_speed",
+    RadarAircraftXAltitude = "radar_aircraft_X_altitude",
+    RadarAircraftXAngle = "radar_aircraft_X_angle",
+    RadarGroundXDistance = "radar_ground_X_distance",
+    RadarGroundXDirection = "radar_ground_X_direction",
+    RadarGroundXSpeed = "radar_ground_X_speed",
+    RadarGroundXAltitude = "radar_ground_X_altitude",
+    RadarGroundXAngle = "radar_ground_X_angle",
+}
 
 // ---------------------------------------------------------------------------
 // Vehicle Variables
 // ---------------------------------------------------------------------------
 
-export const VehicleBinaryVariables = [
-    "navigation_light",     // *
-    "strobe_light",         // *
-    "taxi_light",           // *
-    "landing_light",        // *
-    "running_light",        // *
-    "headlight",            // *
-    "left_turn_signal",     // *
-    "right_turn_signal",    // *
-    "autopilot_present",    // *
-    "autopilot_active",     // *
-    "door",
-    "engines_on",
-    "engines_starting",
-    "engines_running",
-    "flaps_moving",
-    "flaps_increasing",
-    "flaps_decreasing",
-    "fueling",
-    "gear_present",
-    "gear_setpoint",
-    "gear_moving",
-    "horn",
-    "locked",
-    "beacon_connected",
-    "missile_incoming",
-    "p_brake",
-    "reverser",
-    "reverser_present",
-] as const;
+export enum VehicleBinaryVariable {
+    NavigationLight = "navigation_light",       // *
+    StrobeLight = "strobe_light",               // *
+    TaxiLight = "taxi_light",                   // *
+    LandingLight = "landing_light",             // *
+    RunningLight = "running_light",             // *
+    Headlight = "headlight",                    // *
+    LeftTurnSignal = "left_turn_signal",        // *
+    RightTurnSignal = "right_turn_signal",      // *
+    AutopilotPresent = "autopilot_present",     // *
+    AutopilotActive = "autopilot_active",       // *
+    Door = "door",
+    EnginesOn = "engines_on",
+    EnginesStarting = "engines_starting",
+    EnginesRunning = "engines_running",
+    FlapsMoving = "flaps_moving",
+    FlapsIncreasing = "flaps_increasing",
+    FlapsDecreasing = "flaps_decreasing",
+    Fueling = "fueling",
+    GearPresent = "gear_present",
+    GearSetpoint = "gear_setpoint",
+    GearMoving = "gear_moving",
+    Horn = "horn",
+    Locked = "locked",
+    BeaconConnected = "beacon_connected",
+    MissileIncoming = "missile_incoming",
+    PBrake = "p_brake",
+    Reverser = "reverser",
+    ReverserPresent = "reverser_present",
+}
 
-export const VehicleAnalogVariables = [
-    "acceleration",
-    "aileron",
-    "altitude",
-    "autopilot",            // *
-    "ballastControl",
-    "beacon_bearing_setpoint",
-    "beacon_bearing_delta",
-    "beacon_direction",
-    "beacon_distance",
-    "beacon_glideslope_setpoint",
-    "beacon_glideslope_actual",
-    "beacon_glideslope_delta",
-    "brake",                // *
-    "electric_power",
-    "electric_usage",       // *
-    "elevator",
-    "flaps_actual",         // *
-    "flaps_setpoint",       // *
-    "fuel",
-    "heading",
-    "input_aileron",        // *
-    "input_elevator",       // *
-    "input_rudder",         // *
-    "lift_reserve",
-    "mass",
-    "missile_#_direction",
-    "missile_#_distance",
-    "pitch",
-    "road_angle_front",
-    "road_angle_rear",
-    "roll",
-    "rudder",
-    "slip",
-    "slip_degrees",
-    "slip_understeer",
-    "speed",
-    "speed_scaled",
-    "speed_factor",
-    "throttle",             // *
-    "trim_aileron",
-    "trim_elevator",
-    "trim_rudder",
-    "turn_coordinator",
-    "turn_indicator",
-    "pitch_indicator",
-    "velocity",
-    "velocity_scaled",
-    "vertical_speed",
-    "vertical_acceleration",
-    "vertical_acceleration_scaled",
-    "lateral_acceleration",
-    "lateral_acceleration_scaled",
-    "load_factor",
-    "load_factor_scaled",
-    "yaw",
-    "thrust",
-] as const;
+export enum VehicleAnalogVariable {
+    Acceleration = "acceleration",
+    Aileron = "aileron",
+    Altitude = "altitude",
+    Autopilot = "autopilot",                                // *
+    BallastControl = "ballastControl",
+    BeaconBearingSetpoint = "beacon_bearing_setpoint",
+    BeaconBearingDelta = "beacon_bearing_delta",
+    BeaconDirection = "beacon_direction",
+    BeaconDistance = "beacon_distance",
+    BeaconGlideslopeSetpoint = "beacon_glideslope_setpoint",
+    BeaconGlideslopeActual = "beacon_glideslope_actual",
+    BeaconGlideslopeDelta = "beacon_glideslope_delta",
+    Brake = "brake",                                        // *
+    ElectricPower = "electric_power",
+    ElectricUsage = "electric_usage",                       // *
+    Elevator = "elevator",
+    FlapsActual = "flaps_actual",                           // *
+    FlapsSetpoint = "flaps_setpoint",                       // *
+    Fuel = "fuel",
+    Heading = "heading",
+    InputAileron = "input_aileron",                         // *
+    InputElevator = "input_elevator",                       // *
+    InputRudder = "input_rudder",                           // *
+    LiftReserve = "lift_reserve",
+    Mass = "mass",
+    MissileHashDirection = "missile_#_direction",
+    MissileHashDistance = "missile_#_distance",
+    Pitch = "pitch",
+    RoadAngleFront = "road_angle_front",
+    RoadAngleRear = "road_angle_rear",
+    Roll = "roll",
+    Rudder = "rudder",
+    Slip = "slip",
+    SlipDegrees = "slip_degrees",
+    SlipUndersteer = "slip_understeer",
+    Speed = "speed",
+    SpeedScaled = "speed_scaled",
+    SpeedFactor = "speed_factor",
+    Throttle = "throttle",                                  // *
+    TrimAileron = "trim_aileron",
+    TrimElevator = "trim_elevator",
+    TrimRudder = "trim_rudder",
+    TurnCoordinator = "turn_coordinator",
+    TurnIndicator = "turn_indicator",
+    PitchIndicator = "pitch_indicator",
+    Velocity = "velocity",
+    VelocityScaled = "velocity_scaled",
+    VerticalSpeed = "vertical_speed",
+    VerticalAcceleration = "vertical_acceleration",
+    VerticalAccelerationScaled = "vertical_acceleration_scaled",
+    LateralAcceleration = "lateral_acceleration",
+    LateralAccelerationScaled = "lateral_acceleration_scaled",
+    LoadFactor = "load_factor",
+    LoadFactorScaled = "load_factor_scaled",
+    Yaw = "yaw",
+    Thrust = "thrust",
+}
 
 /**
  * Connection variable format: connection_groupIndex_connectionIndex_animation
  * or connection_groupIndex_animation (uses first/active connection in group).
  * Also available: connection_requested (set to group index to trigger connect/disconnect).
  */
-export const ConnectionAnimations = [
-    "present",
-    "connected",
-    "pitch",
-    "roll",
-    "yaw",
-] as const;
+export enum ConnectionAnimation {
+    Present = "present",
+    Connected = "connected",
+    Pitch = "pitch",
+    Roll = "roll",
+    Yaw = "yaw",
+}
 
 // ---------------------------------------------------------------------------
 // Part Variables (All Parts)
 // ---------------------------------------------------------------------------
 
-export const PartVariables = [
-    "part_present",
-    "part_ismirrored",
-    "part_isonfront",
-    "part_isspare",
-    "part_onvehicle",
-    "part_added_vehicle",
-    "part_removed_vehicle",
-    "part_added_ground",
-    "part_removed_ground",
-] as const;
+export enum PartVariable {
+    Present = "part_present",
+    IsMirrored = "part_ismirrored",
+    IsOnFront = "part_isonfront",
+    IsSpare = "part_isspare",
+    OnVehicle = "part_onvehicle",
+    AddedVehicle = "part_added_vehicle",
+    RemovedVehicle = "part_removed_vehicle",
+    AddedGround = "part_added_ground",
+    RemovedGround = "part_removed_ground",
+}
 
 // ---------------------------------------------------------------------------
 // Engine Variables
 // ---------------------------------------------------------------------------
 
-export const EngineBinaryVariables = [
-    "engine_clutch_upshift",
-    "engine_clutch_downshift",
-    "isAutomatic",
-    "engine_badshift",
-    "engine_reversed",
-    "engine_magneto",
-    "engine_starter",
-    "engine_starter_hand",
-    "engine_running",
-    "engine_powered",
-    "engine_shift_up",      // *
-    "engine_shift_down",    // *
-    "engine_shift_neutral", // *
-    "engine_jumper_cable",
-    "engine_backfired",
-    "engine_piston_X_Y_Z_crank",
-    "engine_pistion_X_Y_Z_cam",
-] as const;
+export enum EngineBinaryVariable {
+    ClutchUpshift = "engine_clutch_upshift",
+    ClutchDownshift = "engine_clutch_downshift",
+    IsAutomatic = "isAutomatic",
+    BadShift = "engine_badshift",
+    Reversed = "engine_reversed",
+    Magneto = "engine_magneto",
+    Starter = "engine_starter",
+    StarterHand = "engine_starter_hand",
+    Running = "engine_running",
+    Powered = "engine_powered",
+    ShiftUp = "engine_shift_up",                // *
+    ShiftDown = "engine_shift_down",            // *
+    ShiftNeutral = "engine_shift_neutral",      // *
+    JumperCable = "engine_jumper_cable",
+    Backfired = "engine_backfired",
+    PistonXYZCrank = "engine_piston_X_Y_Z_crank",
+    PistonXYZCam = "engine_pistion_X_Y_Z_cam",
+}
 
-export const EngineAnalogVariables = [
-    "engine_rotation",
-    "engine_sin",
-    "engine_cos",
-    "engine_driveshaft_rotation",
-    "engine_driveshaft_sin",
-    "engine_driveshaft_cos",
-    "engine_rpm",
-    "maxRPM",
-    "idleRPM",
-    "startRPM",
-    "stallRPM",
-    "revlimitRPM",
-    "engine_rpm_percent",
-    "engine_rpm_percent_safe",
-    "engine_rpm_percent_revlimit",
-    "fuelConsumption",
-    "engine_fuel_flow",
-    "engine_fuel_remaining",
-    "engine_temp",
-    "engine_temp_ambient",
-    "engine_pressure",
-    "engine_gear",
-    "gearRatio",
-    "engine_gearshift",
-    "engine_gearshift_hvertical",
-    "engine_gearshift_hhorizontal",
-    "engine_hours",
-] as const;
+export enum EngineAnalogVariable {
+    Rotation = "engine_rotation",
+    Sin = "engine_sin",
+    Cos = "engine_cos",
+    DriveshaftRotation = "engine_driveshaft_rotation",
+    DriveshaftSin = "engine_driveshaft_sin",
+    DriveshaftCos = "engine_driveshaft_cos",
+    RPM = "engine_rpm",
+    MaxRPM = "maxRPM",
+    IdleRPM = "idleRPM",
+    StartRPM = "startRPM",
+    StallRPM = "stallRPM",
+    RevlimitRPM = "revlimitRPM",
+    RPMPercent = "engine_rpm_percent",
+    RPMPercentSafe = "engine_rpm_percent_safe",
+    RPMPercentRevlimit = "engine_rpm_percent_revlimit",
+    FuelConsumption = "fuelConsumption",
+    FuelFlow = "engine_fuel_flow",
+    FuelRemaining = "engine_fuel_remaining",
+    Temp = "engine_temp",
+    TempAmbient = "engine_temp_ambient",
+    Pressure = "engine_pressure",
+    Gear = "engine_gear",
+    GearRatio = "gearRatio",
+    Gearshift = "engine_gearshift",
+    GearshiftHVertical = "engine_gearshift_hvertical",
+    GearshiftHHorizontal = "engine_gearshift_hhorizontal",
+    Hours = "engine_hours",
+}
 
 // ---------------------------------------------------------------------------
 // Gun Variables
 // ---------------------------------------------------------------------------
 
-export const GunBinaryVariables = [
-    "gun_inhand",
-    "gun_controller_firstperson",
-    "gun_inhand_equipped",
-    "gun_inhand_sneaking",
-    "gun_inhand_aiming",
-    "gun_active",
-    "gun_firing",
-    "firingRequested",      // *
-    "ableToFire",           // *
-    "gun_lockedon",
-    "gun_pitching",
-    "gun_yawing",
-    "gun_fired",
-    "gun_muzzleflash",
-    "gun_cooldown",
-    "gun_windup_complete",
-    "gun_reload",
-    "gun_reload_windup",
-    "gun_reload_main",
-    "gun_reload_winddown",
-    "gun_ammo_X_loaded",
-    "gun_bullet_present",
-] as const;
+export enum GunBinaryVariable {
+    InHand = "gun_inhand",
+    ControllerFirstPerson = "gun_controller_firstperson",
+    InHandEquipped = "gun_inhand_equipped",
+    InHandSneaking = "gun_inhand_sneaking",
+    InHandAiming = "gun_inhand_aiming",
+    Active = "gun_active",
+    Firing = "gun_firing",
+    FiringRequested = "firingRequested",        // *
+    AbleToFire = "ableToFire",                  // *
+    LockedOn = "gun_lockedon",
+    Pitching = "gun_pitching",
+    Yawing = "gun_yawing",
+    Fired = "gun_fired",
+    MuzzleFlash = "gun_muzzleflash",
+    Cooldown = "gun_cooldown",
+    WindupComplete = "gun_windup_complete",
+    Reload = "gun_reload",
+    ReloadWindup = "gun_reload_windup",
+    ReloadMain = "gun_reload_main",
+    ReloadWinddown = "gun_reload_winddown",
+    AmmoXLoaded = "gun_ammo_X_loaded",
+    BulletPresent = "gun_bullet_present",
+}
 
-export const GunAnalogVariables = [
-    "gun_pitch",
-    "gun_yaw",
-    "gun_windup_time",
-    "gun_windup_rotation",
-    "gun_ammo_count",
-    "gun_ammo_count_reloading",
-    "gun_ammo_percent",
-    "gun_lockedon_x",
-    "gun_lockedon_y",
-    "gun_lockedon_z",
-    "gun_lockedon_direction",
-    "gun_lockedon_angle",
-    "gun_lockedon_leadpoint_direction",
-    "gun_lockedon_leadpoint_angle",
-    "gun_lockedon_leadangle_x",
-    "gun_lockedon_leadangle_y",
-    "gun_lockedon_distance",
-    "gun_bullet_x",
-    "gun_bullet_y",
-    "gun_bullet_z",
-    "gun_bullet_yaw",
-    "gun_bullet_pitch",
-    "gun_active_muzzlegroup",
-] as const;
+export enum GunAnalogVariable {
+    Pitch = "gun_pitch",
+    Yaw = "gun_yaw",
+    WindupTime = "gun_windup_time",
+    WindupRotation = "gun_windup_rotation",
+    AmmoCount = "gun_ammo_count",
+    AmmoCountReloading = "gun_ammo_count_reloading",
+    AmmoPercent = "gun_ammo_percent",
+    LockedOnX = "gun_lockedon_x",
+    LockedOnY = "gun_lockedon_y",
+    LockedOnZ = "gun_lockedon_z",
+    LockedOnDirection = "gun_lockedon_direction",
+    LockedOnAngle = "gun_lockedon_angle",
+    LockedOnLeadpointDirection = "gun_lockedon_leadpoint_direction",
+    LockedOnLeadpointAngle = "gun_lockedon_leadpoint_angle",
+    LockedOnLeadAngleX = "gun_lockedon_leadangle_x",
+    LockedOnLeadAngleY = "gun_lockedon_leadangle_y",
+    LockedOnDistance = "gun_lockedon_distance",
+    BulletX = "gun_bullet_x",
+    BulletY = "gun_bullet_y",
+    BulletZ = "gun_bullet_z",
+    BulletYaw = "gun_bullet_yaw",
+    BulletPitch = "gun_bullet_pitch",
+    ActiveMuzzleGroup = "gun_active_muzzlegroup",
+}
 
-export const GunTextVariables = [
-    "gun_lockedon_name",
-] as const;
+export enum GunTextVariable {
+    LockedOnName = "gun_lockedon_name",
+}
 
 // ---------------------------------------------------------------------------
 // Interactable Variables
 // ---------------------------------------------------------------------------
 
-export const InteractableVariables = [
-    "interactable_count_stacks",
-    "interactable_count_items",
-    "interactable_percent",
-    "interactable_capacity",
-    "interactable_fuel",
-    "interactable_remaining",
-    "interactable_fluid_x",
-] as const;
+export enum InteractableVariable {
+    CountStacks = "interactable_count_stacks",
+    CountItems = "interactable_count_items",
+    Percent = "interactable_percent",
+    Capacity = "interactable_capacity",
+    Fuel = "interactable_fuel",
+    Remaining = "interactable_remaining",
+    FluidX = "interactable_fluid_x",
+}
 
 // ---------------------------------------------------------------------------
 // Propeller Variables
 // ---------------------------------------------------------------------------
 
-export const PropellerVariables = [
-    "propeller_pitch_deg",
-    "propeller_pitch_in",
-    "propeller_pitch_percent",
-    "propeller_rotation",
-    "propeller_rpm",
-] as const;
+export enum PropellerVariable {
+    PitchDeg = "propeller_pitch_deg",
+    PitchIn = "propeller_pitch_in",
+    PitchPercent = "propeller_pitch_percent",
+    Rotation = "propeller_rotation",
+    RPM = "propeller_rpm",
+}
 
 // ---------------------------------------------------------------------------
 // Ground Device Variables
 // ---------------------------------------------------------------------------
 
-export const GroundDeviceVariables = [
-    "ground_onground",
-    "ground_isflat",
-    "ground_striking",
-    "ground_skidding",
-    "ground_slipping",
-    "ground_blockname_XXXXX",
-    "ground_blockmaterial_XXXXX",
-    "ground_rotation",
-    "ground_rotation_normalized",
-    "ground_distance",
-    "ground_angular_velocity",
-    "ground_angular_velocity_scaled",
-] as const;
+export enum GroundDeviceVariable {
+    OnGround = "ground_onground",
+    IsFlat = "ground_isflat",
+    Striking = "ground_striking",
+    Skidding = "ground_skidding",
+    Slipping = "ground_slipping",
+    BlocknameX = "ground_blockname_XXXXX",
+    BlockmaterialX = "ground_blockmaterial_XXXXX",
+    Rotation = "ground_rotation",
+    RotationNormalized = "ground_rotation_normalized",
+    Distance = "ground_distance",
+    AngularVelocity = "ground_angular_velocity",
+    AngularVelocityScaled = "ground_angular_velocity_scaled",
+}
 
 // ---------------------------------------------------------------------------
 // Seat Variables
 // ---------------------------------------------------------------------------
 
-export const SeatVariables = [
-    "seat_occupied",
-    "seat_occupied_client",
-    "seat_rider_yaw",
-    "seat_rider_pitch",
-] as const;
+export enum SeatVariable {
+    Occupied = "seat_occupied",
+    OccupiedClient = "seat_occupied_client",
+    RiderYaw = "seat_rider_yaw",
+    RiderPitch = "seat_rider_pitch",
+}
 
 // ---------------------------------------------------------------------------
 // Effector Variables
 // ---------------------------------------------------------------------------
 
-export const EffectorVariables = [
-    "effector_active",
-    "effector_operated",
-    "effector_drill_broken",
-    "effector_drill_max",
-    "effector_drill_percentage",
-] as const;
+export enum EffectorVariable {
+    Active = "effector_active",
+    Operated = "effector_operated",
+    DrillBroken = "effector_drill_broken",
+    DrillMax = "effector_drill_max",
+    DrillPercentage = "effector_drill_percentage",
+}
 
 // ---------------------------------------------------------------------------
 // Block Variables
 // ---------------------------------------------------------------------------
 
-export const BlockVariables = [
-    "redstone_active",
-    "redstone_level",
-] as const;
+export enum BlockVariable {
+    RedstoneActive = "redstone_active",
+    RedstoneLevel = "redstone_level",
+}
 
-export const DecorVariables = [
-    "clicked",
-    "activated",
-    "inventory_count",
-    "inventory_percent",
-    "inventory_capacity",
-    "fuelpump_active",
-    "fuelpump_free",
-    "fuelpump_stored",
-    "fuelpump_dispensed",
-    "fuelpump_purchased",
-    "fuelpump_fluid",
-    "fuelpump_fluid_x",
-    "charger_active",
-    "charger_free",
-    "charger_dispensed",
-    "charger_purchased",
-    "charger_vehicle_percentage",
-    "tank_loading_active",
-    "tank_unloading_active",
-    "tank_buffer_active",
-] as const;
+export enum DecorVariable {
+    Clicked = "clicked",
+    Activated = "activated",
+    InventoryCount = "inventory_count",
+    InventoryPercent = "inventory_percent",
+    InventoryCapacity = "inventory_capacity",
+    FuelPumpActive = "fuelpump_active",
+    FuelPumpFree = "fuelpump_free",
+    FuelPumpStored = "fuelpump_stored",
+    FuelPumpDispensed = "fuelpump_dispensed",
+    FuelPumpPurchased = "fuelpump_purchased",
+    FuelPumpFluid = "fuelpump_fluid",
+    FuelPumpFluidX = "fuelpump_fluid_x",
+    ChargerActive = "charger_active",
+    ChargerFree = "charger_free",
+    ChargerDispensed = "charger_dispensed",
+    ChargerPurchased = "charger_purchased",
+    ChargerVehiclePercentage = "charger_vehicle_percentage",
+    TankLoadingActive = "tank_loading_active",
+    TankUnloadingActive = "tank_unloading_active",
+    TankBufferActive = "tank_buffer_active",
+}
 
-export const PoleVariables = [
-    "linked",
-    "slab_present_up",
-    "slab_present_down",
-    "neighbor_present_<AXIS>",
-    "matching_present_<AXIS>",
-    "solid_present_<AXIS>",
-] as const;
+export enum PoleVariable {
+    Linked = "linked",
+    SlabPresentUp = "slab_present_up",
+    SlabPresentDown = "slab_present_down",
+    NeighborPresentAxis = "neighbor_present_<AXIS>",
+    MatchingPresentAxis = "matching_present_<AXIS>",
+    SolidPresentAxis = "solid_present_<AXIS>",
+}
 
 // ---------------------------------------------------------------------------
 // Bullet Variables
 // ---------------------------------------------------------------------------
 
-export const BulletVariables = [
-    "bullet_hit",
-    "bullet_hit_block",
-    "bullet_hit_entity",
-    "bullet_hit_vehicle",
-    "bullet_hit_armor",
-    "bullet_hit_burst",
-    "bullet_hit_penetrated",
-    "bullet_burntime",
-] as const;
+export enum BulletVariable {
+    Hit = "bullet_hit",
+    HitBlock = "bullet_hit_block",
+    HitEntity = "bullet_hit_entity",
+    HitVehicle = "bullet_hit_vehicle",
+    HitArmor = "bullet_hit_armor",
+    HitBurst = "bullet_hit_burst",
+    HitPenetrated = "bullet_hit_penetrated",
+    Burntime = "bullet_burntime",
+}
 
 // ---------------------------------------------------------------------------
 // Union type for use in animation variable fields
 // ---------------------------------------------------------------------------
 
 export type AnimationVariable =
-    | typeof GlobalBinaryVariables[number]
-    | typeof GlobalAnalogVariables[number]
-    | typeof VehicleBinaryVariables[number]
-    | typeof VehicleAnalogVariables[number]
-    | typeof PartVariables[number]
-    | typeof EngineBinaryVariables[number]
-    | typeof EngineAnalogVariables[number]
-    | typeof GunBinaryVariables[number]
-    | typeof GunAnalogVariables[number]
-    | typeof GunTextVariables[number]
-    | typeof InteractableVariables[number]
-    | typeof PropellerVariables[number]
-    | typeof GroundDeviceVariables[number]
-    | typeof SeatVariables[number]
-    | typeof EffectorVariables[number]
-    | typeof BlockVariables[number]
-    | typeof DecorVariables[number]
-    | typeof PoleVariables[number]
-    | typeof BulletVariables[number]
+    | GlobalBinaryVariable
+    | GlobalAnalogVariable
+    | VehicleBinaryVariable
+    | VehicleAnalogVariable
+    | PartVariable
+    | EngineBinaryVariable
+    | EngineAnalogVariable
+    | GunBinaryVariable
+    | GunAnalogVariable
+    | GunTextVariable
+    | InteractableVariable
+    | PropellerVariable
+    | GroundDeviceVariable
+    | SeatVariable
+    | EffectorVariable
+    | BlockVariable
+    | DecorVariable
+    | PoleVariable
+    | BulletVariable
     | (string & {}); // allows custom/parameterized variables while keeping autocomplete
+
+export const AnimationVariables = {
+    GlobalBinary: GlobalBinaryVariable,
+    GlobalAnalog: GlobalAnalogVariable,
+    VehicleBinary: VehicleBinaryVariable,
+    VehicleAnalog: VehicleAnalogVariable,
+    Part: PartVariable,
+    EngineBinary: EngineBinaryVariable,
+    EngineAnalog: EngineAnalogVariable,
+    GunBinary: GunBinaryVariable,
+    GunAnalog: GunAnalogVariable,
+    GunText: GunTextVariable,
+    Interactable: InteractableVariable,
+    Propeller: PropellerVariable,
+    GroundDevice: GroundDeviceVariable,
+    Seat: SeatVariable,
+    Effector: EffectorVariable,
+    Block: BlockVariable,
+    Decor: DecorVariable,
+    Pole: PoleVariable,
+    Bullet: BulletVariable,
+} as const;

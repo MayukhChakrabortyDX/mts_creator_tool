@@ -1,4 +1,6 @@
 import { ImageResource, MTSContentPack, MTSContentPackBuilder } from "./src";
+import path from 'node:path'
+import { resources } from "./assets";
 
 //now let's create my content packs
 const motorsports = new MTSContentPack({
@@ -13,4 +15,6 @@ const builder = new MTSContentPackBuilder({
 });
 
 //do not touch this
-builder.build(__dirname);
+builder.build(
+    path.join(process.cwd())
+);

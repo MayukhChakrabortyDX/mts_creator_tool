@@ -2,6 +2,7 @@
 
 import { JSONDefs, type Versions } from "./json";
 import { type AnimationVariable } from "./animationVariables";
+import type { Expand } from "../utils/expand";
 
 export enum EasingType {
     Linear = "linear",
@@ -196,7 +197,7 @@ export class Animation extends JSONDefs {
     reverseStartSound?: string;
     reverseEndSound?: string;
 
-    constructor(properties: Partial<AnimationProps>) {
+    constructor(properties: Expand<Partial<AnimationProps>>) {
         super();
         this.animationType       = properties.animationType;
         this.variable            = properties.variable;

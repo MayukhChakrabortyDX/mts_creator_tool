@@ -3,6 +3,8 @@
 import { JSONDefs, type Versions } from "./json";
 import { type AnimationProps } from "./animation";
 import { type ActionProps } from "./action";
+import type { Expand } from "../utils/expand";
+import type { Variable } from "../utils/variable";
 
 export enum CollisionType {
     /** Allows collision with blocks. */
@@ -58,9 +60,53 @@ export type CollisionBoxProps = {
      * logic will turn the variable off when the vehicle starts moving.
      */
     action: Partial<ActionProps>;
+    variableName: Variable;
+    variableType: "toggle"; //! FOR NOW
+
 }
 
+export class CollisionBox extends JSONDefs {
+
+    pos?: [number, number, number];
+    width?: number;
+    height?: number;
+    collidesWithLiquids?: boolean;
+    action?: Partial<ActionProps>;
+    variableName?: Variable;
+    variableType?: "toggle";
+
+    constructor(properties: Expand<Partial<CollisionBoxProps>>) {
+        super();
+        this.pos = properties.pos;
+        this.width = properties.width;
+        this.height = properties.height;
+        this.collidesWithLiquids = properties.collidesWithLiquids;
+        this.action = properties.action;
+        this.variableName = properties.variableName;
+        this.variableType = properties.variableType;
+    }
+
+    override toJSON(version: Versions): object {
+        return {
+            collisions: {
+                pos: this.pos,
+                width: this.width,
+                height: this.height,
+                collidesWithLiquids: this.collidesWithLiquids,
+                action: this.action,
+            }
+        };
+    }
+}
+
+
 export type CollisionGroupProps = {
+
+    /**
+     * This was found in the OCP, as of now, I can only interpret it as the fact
+     * that this is simply telling if the collision box is inside the vehicles' boundry.
+     */
+    isInterior: boolean;
     /**
      * How much health this collision group has.
      * When health reaches 0, the group is disabled.
@@ -115,7 +161,7 @@ export type CollisionGroupProps = {
     /**
      * The list of collision boxes in this group.
      */
-    collisions: Partial<CollisionBoxProps>[];
+    collisions: CollisionBox[];
 
     /**
      * If set, this group will first apply the animations of the specified
@@ -142,11 +188,11 @@ export class CollisionGroup extends JSONDefs {
     externalEntityDamage?: number;
     internalEntityDamage?: number;
     collisionTypes?: CollisionType[];
-    collisions?: Partial<CollisionBoxProps>[];
+    collisions?: CollisionBox[];
     applyAfter?: string;
     animations?: Partial<AnimationProps>[];
 
-    constructor(properties: Partial<CollisionGroupProps>) {
+    constructor(properties: Expand<Partial<CollisionGroupProps>>) {
         super();
         this.health                   = properties.health;
         this.armorThickness           = properties.armorThickness;

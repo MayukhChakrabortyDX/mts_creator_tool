@@ -5,6 +5,8 @@ import { type AnimationProps } from "./animation";
 import { type ConditionProps } from "./conditions";
 import { type PotionEffectProps } from "./potionEffect";
 import { type AnimationVariable } from "./animationVariables";
+import type { PartConvention } from "./partConvention";
+import type { Expand } from "../utils/expand";
 
 export enum GroundDevicePosition {
     FrontLeft   = "front_left",
@@ -108,20 +110,20 @@ export type PartSlotProps = {
      * Usually one entry, though multiple types can be listed for flexible slots
      * (e.g. a slot accepting both seats and chests).
      */
-    types: string[];
+    types: PartConvention[];
 
     /**
      * If set, this slot will only accept parts whose customType matches one of
      * the entries in this list. A blank entry ("") permits parts with no customType.
      * Useful for restricting slots to specific part subsets or pack-specific parts.
      */
-    customTypes: string[];
+    customTypes: PartConvention[];
 
     /**
      * If set, this slot only accepts parts on the specified definition subName variants.
      * Used for variant-specific configurations such as police variants of vehicles.
      */
-    validSubNames: string[];
+    validSubNames: PartConvention[];
 
     /**
      * If set, the part in this slot will attempt to match the specified tone index
@@ -396,7 +398,7 @@ export class PartSlot extends JSONDefs {
     lockingVariables?: AnimationVariable[][];
     constantValues?: Record<string, number>;
 
-    constructor(properties: Partial<PartSlotProps>) {
+    constructor(properties: Expand<Partial<PartSlotProps>>) {
         super();
         this.pos                    = properties.pos;
         this.rot                    = properties.rot;

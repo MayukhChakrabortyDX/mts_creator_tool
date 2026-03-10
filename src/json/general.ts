@@ -1,5 +1,6 @@
 //! REVIEW INCOMPLETE
 
+import type { Expand } from "../utils/expand";
 import { JSONDefs, type Versions } from "./json";
 
 export type GeneralProps = {
@@ -30,7 +31,7 @@ export class General extends JSONDefs {
     radarRange?: number;
     radarWidth?: number;
 
-    constructor(properties: Partial<GeneralProps>) {
+    constructor(properties: Expand<Partial<GeneralProps>>) {
         super();
         this.hideOnCreativeTab = properties.hideOnCreativeTab;
         this.name = properties.name;
