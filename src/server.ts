@@ -1,2 +1,2 @@
-import { runServer } from "./assets";
+import { runServer } from "./resource";
 runServer()

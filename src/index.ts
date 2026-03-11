@@ -1,6 +1,7 @@
-import { mkdir, mkdirSync, writeFileSync, existsSync, open } from 'node:fs'
+import { mkdir, mkdirSync, writeFileSync, existsSync, open, copyFileSync, rmdirSync, rmSync } from 'node:fs'
 import path from 'node:path';
 import {$} from 'bun'
+import { InstrumentJSON } from './json/instrument';
 
 //a resource will always search in src/res folder.
 export class Resource {
@@ -21,61 +22,10 @@ export type MTSContentPackConstructorTypes = {
 export class MTSContentPack {
     
     packDetails: MTSContentPackConstructorTypes;
-    components = {
-        vehicles: [],
-        parts: [],
-        bullets: [],
-        panels: [],
-        instruments: [],
-        decors: [],
-        roads: [],
-        poles: [],
-        signs: [],
-        skins: []
-    }
+    instruments: InstrumentJSON[] = []
 
     constructor(packDetails: MTSContentPackConstructorTypes) {
         this.packDetails = packDetails;
-    }
-
-    addVehicle() {
-
-    }
-
-    addParts() {
-
-    }
-
-    addBullets() {
-
-    }
-
-    addPanels() {
-
-    }
-    
-    addInstruments() {
-
-    }
-
-    addDecors() {
-
-    }
-
-    addRoads() {
-
-    }
-
-    addPoles() {
-
-    }
-
-    addSigns() {
-
-    }
-
-    addSkins() {
-
     }
     
 }
@@ -95,10 +45,14 @@ export class MTSContentPackBuilder {
     //builds the content pack.
     async build(the_path: string) {
 
-
+        let root = the_path;
+        let counter = 0; //used for filenames, guaranteed to be unique
         let out_path: string = path.join(the_path, 'output')
 
         if ( !existsSync(out_path) ) {
+            mkdirSync(out_path)
+        } else {
+            rmSync(out_path, { recursive: true, force: true })
             mkdirSync(out_path)
         }
 
@@ -108,6 +62,7 @@ export class MTSContentPackBuilder {
         mkdirSync(path.join(the_path, this.name))
         mkdirSync(path.join(the_path, this.name, 'assets'))
 
+        //write the pack definitions first.
         for ( let content of this.contentPacks ) {
             
             mkdirSync(path.join(the_path, this.name, content.packDetails.packId))
@@ -121,7 +76,25 @@ export class MTSContentPackBuilder {
 
             }))
 
+            //now let's start by adding the instruments
+            //create the instruments folder first
+            mkdirSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'jsondefs', 'instruments'), { recursive: true })
+            mkdirSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'instruments'), { recursive: true }) //for the texture
+            
+            for ( let instrument of content.instruments ) {
+                //now copy the texture to the actual texture directory
+                copyFileSync(
+                    path.join(root, 'res', instrument.props.textureName), 
+                    path.join(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'instruments', `${++counter}.png`))
+                )
+
+                instrument.props.textureName = `instruments/${counter}.png` //rename because the reference changed.
+                //write the instrument json file.
+                writeFileSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'jsondefs', 'instruments', `${++counter}.json`), JSON.stringify(instrument))
+            }
+            //copy the texture from the instrument content
         }
+
         //now we will create the java file basically (jar)
         await $`cd output && jar cf ${this.name}.jar -C ${this.name} .`
 

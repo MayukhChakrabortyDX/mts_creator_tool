@@ -1,69 +1,39 @@
-//! REVIEW INCOMPLETE
+import type { Expand } from "../util";
+import { JSONBase } from "./base";
 
-import type { Expand } from "../utils/expand";
-import { JSONDefs, type Versions } from "./json";
-
-export type GeneralProps = {
-    hideOnCreativeTab: boolean;
-    name: string;
-    description: string;
-    stackSize: number;
-    health: number;
-    materialLists: (string[])[];
-    repairMaterialLists: (string[])[];
-    returnedMaterialLists: (string[])[];
-    oreDict: string;
-    radarRange: number;
-    radarWidth: number;
-}
-
-export class General extends JSONDefs {
-
-    hideOnCreativeTab?: boolean;
+export type GeneralJSONProps = {
+    hideOnCreative?: boolean;
     name?: string;
     description?: string;
-    stackSize?: number;
-    health?: number;
-    materialLists?: (string[])[];
+    stackSize?: number; //?is integer, should check
+    health?: number; //?is integer, should check
+    materialLists: (string[])[];
     repairMaterialLists?: (string[])[];
     returnedMaterialLists?: (string[])[];
     oreDict?: string;
-    radarRange?: number;
-    radarWidth?: number;
+    radarWidth?: number; //?is double
+    radarRange?: number; //?is double
+}
 
-    constructor(properties: Expand<Partial<GeneralProps>>) {
+export class GeneralJSON extends JSONBase {
+
+    constructor(public props: Expand<GeneralJSONProps>) {
         super();
-        this.hideOnCreativeTab = properties.hideOnCreativeTab;
-        this.name = properties.name;
-        this.description = properties.description;
-        this.stackSize = properties.stackSize !== undefined
-            ? Math.min(properties.stackSize, 64)
-            : undefined;
-        this.health = properties.health;
-        this.materialLists = properties.materialLists;
-        this.repairMaterialLists = properties.repairMaterialLists;
-        this.returnedMaterialLists = properties.returnedMaterialLists;
-        this.oreDict = properties.oreDict;
-        this.radarRange = properties.radarRange;
-        this.radarWidth = properties.radarWidth;
+        if ( props.stackSize != undefined ) {
+            if ( !Number.isInteger(props.stackSize) ) {
+                throw new Error(`stackSize in Typeof General MUST be an integer`)
+            }
+
+            if ( props.stackSize > 64 ) {
+                throw new Error(`stackSize in Typeof General MUST be limited to 64 only`)
+            }
+        }
     }
 
-    override toJSON(version: Versions): object {
+    override toJSON() {
         return {
-            general: {
-                hideOnCreativeTab: this.hideOnCreativeTab,
-                name: this.name,
-                description: this.description,
-                stackSize: this.stackSize,
-                health: this.health,
-                materialLists: this.materialLists,
-                repairMaterialLists: this.repairMaterialLists,
-                returnedMaterialLists: this.returnedMaterialLists,
-                oreDict: version === "1.12.2" ? this.oreDict : undefined,
-                radarRange: this.radarRange,
-                radarWidth: this.radarWidth,
-            }
-        };
+            ...this.stripUndefined(this.props)
+        }
     }
 
 }

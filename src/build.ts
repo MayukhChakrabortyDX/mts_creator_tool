@@ -1,2 +1,2 @@
-import { generateOnDemand } from "./assets";
+import { generateOnDemand } from "./resource";
 generateOnDemand()

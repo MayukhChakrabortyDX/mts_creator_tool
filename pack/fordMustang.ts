@@ -6,7 +6,7 @@ import { General } from "../src/json/general";
 import { Motorized } from "../src/json/motorized";
 import { PartTypes, Wheel, type PartConvention } from "../src/json/partConvention";
 import { PartSlot } from "../src/json/partSlot";
-import { VehicleEntity } from "../src/models/VehicleEntity";
+import { VehicleEntity } from "../src/entity/VehicleEntity";
 import { Variable } from "../src/utils/variable";
 
 //let's create variables here
