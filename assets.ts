@@ -1,6 +1,7 @@
 /*!DO NOT TOUCH*/
 
 export type ResourceLocation =
+    | "/dashboard.png"
     | "/fordmustang69.obj"
     | "/instruments.png"
     | "/assets"

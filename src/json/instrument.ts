@@ -1,16 +1,18 @@
 import type { Expand } from "../util";
+import type { AnimationJSON } from "./animation";
 import { JSONBase } from "./base";
 import type { GeneralJSON } from "./general";
+import type { TextJSON } from "./text";
 
 export type InstrumentComponentJSONProps = {
     xCenter?: number; //?is integer
     yCenter?: number; //?is integer
     scale?: number;
-    textureXCenter: number; //?is integer
-    textureYCenter: number; //?is integer
+    textureXCenter?: number; //?is integer
+    textureYCenter?: number; //?is integer
     textureHeight: number; //?is integer
     textureWidth: number; //?is integer
-    textObject?: string; //!is JSONText, will look into it soon.
+    textObject?: TextJSON;
     textFactor?: number; //TODO: If the textObject exists, then.
     rotateWindow?: boolean;
     extendWindow?: boolean;
@@ -18,13 +20,21 @@ export type InstrumentComponentJSONProps = {
     lightUpTexture?: boolean;
     alwaysLit?: boolean;
     overlayTexture?: boolean;
-    animations?: string; //!is Animation, will look into it soon.
+    animations?: AnimationJSON[]; //!is Animation, will look into it soon.
 }
 
 export class InstrumentComponentJSON extends JSONBase {
 
     constructor(public props: Expand<InstrumentComponentJSONProps>) {
         super();
+
+        if ( props.textureXCenter == undefined ) {
+            props.textureXCenter = Math.floor(props.textureWidth / 2)
+        }
+
+        if ( props.textureYCenter == undefined ) {
+            props.textureYCenter = Math.floor(props.textureHeight / 2)
+        }
 
         if ( props.textObject != undefined ) {
             if (props.textFactor == undefined) {

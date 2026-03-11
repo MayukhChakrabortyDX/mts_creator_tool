@@ -3,6 +3,7 @@ import path from 'node:path'
 import { InstrumentComponentJSON, InstrumentJSON } from "./src/json/instrument";
 import { GeneralJSON } from "./src/json/general";
 import { asset } from "./assets";
+import { AnimationJSON, AnimationType } from "./src/json/animation";
 
 //now let's create my content packs
 const motorsports = new MTSContentPack({
@@ -13,24 +14,21 @@ const motorsports = new MTSContentPack({
 //let's create a new instrument first.
 const InstrumentAircraftADF = new InstrumentJSON({
     components: [
+        //basically a layer.
         new InstrumentComponentJSON({
-			textureXCenter: 128,
-			textureYCenter: 960,
+            textureXCenter: 128,
+            textureYCenter: 960,
 			textureWidth: 40,
 			textureHeight: 56,
-			translationVariable: "engine_gear",
-			translationFactor: 80.0,
-			translateHorizontal: true,
-			translationClampMin: -80,
-			translationClampMax: 720
-        }),
-
-        new InstrumentComponentJSON({
-            textureXCenter: 960,
-			textureYCenter: 960,
-			textureWidth: 40,
-			textureHeight: 56,
-			lightOverlay: false
+            overlayTexture: true,
+            animations: [
+                new AnimationJSON({
+                    animationType: AnimationType.Translation,
+                    variable: 'engine_gear',
+                    axis: [80, 0, 0],
+                    clampMax: 720, clampMin: -80
+                })
+            ]
         })
     ],
 

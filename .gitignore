@@ -1,6 +1,7 @@
 # dependencies (bun install)
 node_modules
 assets.ts
+output
 # output
 out
 dist
