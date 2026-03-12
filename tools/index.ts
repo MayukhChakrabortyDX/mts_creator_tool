@@ -1,18 +1,6 @@
-import { mkdir, mkdirSync, writeFileSync, existsSync, open, copyFileSync, rmdirSync, rmSync } from 'node:fs'
+import { mkdirSync, writeFileSync, copyFileSync } from 'node:fs'
 import path from 'node:path';
-import {$} from 'bun'
 import { InstrumentJSON } from './json/instrument';
-
-//a resource will always search in src/res folder.
-export class Resource {
-    constructor(public url: string) {}
-}
-
-export class ImageResource extends Resource {
-    constructor(url: string) {
-        super(url);
-    }
-}
 
 export type MTSContentPackConstructorTypes = {
     packId: string; 
@@ -33,10 +21,10 @@ export class MTSContentPack {
 export class MTSContentPackBuilder {
 
     private contentPacks: MTSContentPack[] = [];
-    private vingette: ImageResource;
+    private vingette: string;
     name: string;
 
-    constructor(builderProps: { contentPacks: MTSContentPack[]; vingette: ImageResource, name: string }) {
+    constructor(builderProps: { contentPacks: MTSContentPack[]; vingette: string, name: string }) {
         this.contentPacks = builderProps.contentPacks;
         this.vingette = builderProps.vingette;
         this.name = builderProps.name;
