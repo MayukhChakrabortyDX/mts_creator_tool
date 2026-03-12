@@ -8,6 +8,10 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "alwaysStrict": true,
+    "paths": {
+      "@tools/*": ["./tools/*"],
+      "@packs/*": ["./packs/*"],
+    },
 
     // Bundler mode
     "moduleResolution": "bundler",

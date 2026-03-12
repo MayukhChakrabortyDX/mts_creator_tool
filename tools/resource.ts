@@ -2,7 +2,7 @@
 //! DO NOT MODIFY THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING.
 
 import path from 'node:path';
-import { readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 
 // ─── Data Model ──────────────────────────────────────────────────────────────
 
@@ -75,7 +75,7 @@ function generateAssetsFile(root: Folder) {
         `}`,
     ].join("\n");
 
-    writeFileSync(path.join(process.cwd(), 'assets.ts'), file);
+    writeFileSync(path.join(process.cwd(), 'packs', 'assets.ts'), file);
 }
 
 // ─── Diff / Watch ────────────────────────────────────────────────────────────
@@ -122,12 +122,17 @@ function logFolderContents(folder: Folder, indent: string, prefix: string) {
 // ─── Exports ─────────────────────────────────────────────────────────────────
 
 export function runServer() {
-    let root = getRecursiveFileTree(path.join(process.cwd(), 'res'));
+    let root = getRecursiveFileTree(path.join(process.cwd(), 'packs', 'res'));
+
+    if ( !existsSync( path.join(process.cwd(),'packs', 'res') ) ) {
+        mkdirSync( path.join(process.cwd(),'packs', 'res'), { recursive: true })
+    }
+
     generateAssetsFile(root);
     console.log("\x1b[36mAsset server running...\x1b[0m");
 
     setInterval(() => {
-        const next = getRecursiveFileTree(path.join(process.cwd(), 'res'));
+        const next = getRecursiveFileTree(path.join(process.cwd(), 'packs', 'res'));
         diffChangeTree(root, next);
         root = next;
         generateAssetsFile(root);
@@ -137,7 +142,7 @@ export function runServer() {
 export function generateOnDemand() {
     return generateAssetsFile(
         getRecursiveFileTree(
-            path.join(process.cwd(), 'res')
+            path.join(process.cwd(), 'packs', 'res')
         )
     );
 }

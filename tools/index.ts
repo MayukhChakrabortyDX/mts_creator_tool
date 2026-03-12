@@ -34,7 +34,7 @@ export class MTSContentPackBuilder {
 
     private contentPacks: MTSContentPack[] = [];
     private vingette: ImageResource;
-    private name: string;
+    name: string;
 
     constructor(builderProps: { contentPacks: MTSContentPack[]; vingette: ImageResource, name: string }) {
         this.contentPacks = builderProps.contentPacks;
@@ -47,20 +47,10 @@ export class MTSContentPackBuilder {
 
         let root = the_path;
         let counter = 0; //used for filenames, guaranteed to be unique
-        let out_path: string = path.join(the_path, 'output')
-
-        if ( !existsSync(out_path) ) {
-            mkdirSync(out_path)
-        } else {
-            rmSync(out_path, { recursive: true, force: true })
-            mkdirSync(out_path)
-        }
-
-        the_path = out_path
 
         //create the file
-        mkdirSync(path.join(the_path, this.name))
-        mkdirSync(path.join(the_path, this.name, 'assets'))
+        mkdirSync(path.join(the_path, this.name), { recursive: true })
+        mkdirSync(path.join(the_path, this.name, 'assets'), { recursive: true })
 
         //write the pack definitions first.
         for ( let content of this.contentPacks ) {
@@ -84,7 +74,7 @@ export class MTSContentPackBuilder {
             for ( let instrument of content.instruments ) {
                 //now copy the texture to the actual texture directory
                 copyFileSync(
-                    path.join(root, 'res', instrument.props.textureName), 
+                    path.join(process.cwd(), 'packs/res', instrument.props.textureName), 
                     path.join(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'instruments', `${++counter}.png`))
                 )
 
@@ -94,9 +84,6 @@ export class MTSContentPackBuilder {
             }
             //copy the texture from the instrument content
         }
-
-        //now we will create the java file basically (jar)
-        await $`cd output && jar cf ${this.name}.jar -C ${this.name} .`
 
     }
 
