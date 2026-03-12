@@ -7,7 +7,7 @@ import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 // ─── Data Model ──────────────────────────────────────────────────────────────
 
 class File {
-    constructor(public path: string, public name: string) {}
+    constructor(public path: string, public name: string) { }
 }
 
 class Folder {
@@ -16,7 +16,7 @@ class Folder {
         public name: string,
         public files: File[],
         public folders: Folder[]
-    ) {}
+    ) { }
 
 }
 
@@ -107,8 +107,8 @@ function diffChangeTree(oldFolder: Folder, newFolder: Folder) {
 
 function logFolderContents(folder: Folder, indent: string, prefix: string) {
     const isAdd = prefix === "+";
-    const fileColor  = isAdd ? "\x1b[32m" : "\x1b[31m";
-    const dirColor   = isAdd ? "\x1b[34m" : "\x1b[33m";
+    const fileColor = isAdd ? "\x1b[32m" : "\x1b[31m";
+    const dirColor = isAdd ? "\x1b[34m" : "\x1b[33m";
 
     for (const file of folder.files) {
         console.log(`${fileColor}${indent}${prefix}file:   ${file.path}\x1b[0m`);
@@ -122,11 +122,13 @@ function logFolderContents(folder: Folder, indent: string, prefix: string) {
 // ─── Exports ─────────────────────────────────────────────────────────────────
 
 export function runServer() {
-    let root = getRecursiveFileTree(path.join(process.cwd(), 'packs', 'res'));
 
-    if ( !existsSync( path.join(process.cwd(),'packs', 'res') ) ) {
-        mkdirSync( path.join(process.cwd(),'packs', 'res'), { recursive: true })
+
+    if (!existsSync(path.join(process.cwd(), 'packs', 'res'))) {
+        mkdirSync(path.join(process.cwd(), 'packs', 'res'), { recursive: true })
     }
+
+    let root = getRecursiveFileTree(path.join(process.cwd(), 'packs', 'res'));
 
     generateAssetsFile(root);
     console.log("\x1b[36mAsset server running...\x1b[0m");
