@@ -42,9 +42,14 @@ export enum AnimationEasingType {
     EaseInOutBounce = "easeinoutbounce"
 }
 
-type AnimationJSONPropsBase = {
+export type AnimationJSONProps = {
     variable: string;
+    animationType: AnimationType;
+    centerPoint?: Point3d;
+    axis?: Point3d;
     offset?: number;
+    clampMin?: number;
+    clampMax?: number;
     absolute?: boolean;
     invert?: boolean;
     duration?: number;
@@ -60,40 +65,48 @@ type AnimationJSONPropsBase = {
     reverseEndSound?: string;
 };
 
-export type AnimationJSONProps =
-    | (AnimationJSONPropsBase & {
-        animationType: AnimationType.Rotation | AnimationType.Scaling;
-        centerPoint: Point3d;  // required
-        axis: Point3d;         // required
-        clampMin?: number;
-        clampMax?: number;
-    })
-    | (AnimationJSONPropsBase & {
-        animationType: AnimationType.Translation;
-        centerPoint?: Point3d;
-        axis: Point3d;         // required
-        clampMin?: number;
-        clampMax?: number;
-    })
-    | (AnimationJSONPropsBase & {
-        animationType: AnimationType.Visibility;
-        centerPoint?: Point3d;
-        axis?: Point3d;
-        clampMin: number;      // required
-        clampMax: number;      // required
-    })
-    | (AnimationJSONPropsBase & {
-        animationType: AnimationType.Inhibitor | AnimationType.Activator;
-        centerPoint?: Point3d;
-        axis?: Point3d;
-        clampMin?: number;
-        clampMax?: number;
-    });
-
 export class AnimationJSON extends JSONBase {
 
     constructor(public props: Expand<AnimationJSONProps>) {
-        super()
+        super();
+
+        const { animationType, centerPoint, axis, clampMin, clampMax } = props;
+
+        if (animationType === AnimationType.Rotation || animationType === AnimationType.Scaling) {
+            if (centerPoint == undefined) {
+                throw new Error(`centerPoint is required in AnimationJSON when animationType is ${animationType}`);
+            }
+            if (axis == undefined) {
+                throw new Error(`axis is required in AnimationJSON when animationType is ${animationType}`);
+            }
+        }
+
+        if (animationType === AnimationType.Translation) {
+            if (axis == undefined) {
+                throw new Error(`axis is required in AnimationJSON when animationType is ${animationType}`);
+            }
+        }
+
+        if (animationType === AnimationType.Visibility) {
+            if (clampMin == undefined) {
+                throw new Error(`clampMin is required in AnimationJSON when animationType is ${animationType}`);
+            }
+            if (clampMax == undefined) {
+                throw new Error(`clampMax is required in AnimationJSON when animationType is ${animationType}`);
+            }
+        }
+
+        if (props.duration != undefined && !Number.isInteger(props.duration)) {
+            throw new Error(`duration in AnimationJSON must be an Integer`);
+        }
+
+        if (props.forwardsDelay != undefined && !Number.isInteger(props.forwardsDelay)) {
+            throw new Error(`forwardsDelay in AnimationJSON must be an Integer`);
+        }
+
+        if (props.reverseDelay != undefined && !Number.isInteger(props.reverseDelay)) {
+            throw new Error(`reverseDelay in AnimationJSON must be an Integer`);
+        }
     }
 
     override toJSON() {

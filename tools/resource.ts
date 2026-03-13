@@ -70,7 +70,7 @@ function generateAssetsFile(root: Folder) {
         `export type ResourceLocation =`,
         unionType + ";",
         ``,
-        `export function asset<T extends ResourceLocation>(path: T): string {`,
+        `export function asset<T extends ResourceLocation>(path: T): ResourceLocation {`,
         `    return path;`,
         `}`,
     ].join("\n");

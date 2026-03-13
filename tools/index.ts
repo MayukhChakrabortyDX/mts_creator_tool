@@ -1,6 +1,7 @@
-import { mkdirSync, writeFileSync, copyFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync, copyFileSync, existsSync } from 'node:fs'
 import path from 'node:path';
 import { InstrumentJSON } from './json/instrument';
+import type { Expand } from './util';
 
 export type MTSContentPackConstructorTypes = {
     packId: string; 
@@ -12,7 +13,7 @@ export class MTSContentPack {
     packDetails: MTSContentPackConstructorTypes;
     instruments: InstrumentJSON[] = []
 
-    constructor(packDetails: MTSContentPackConstructorTypes) {
+    constructor(packDetails: Expand<MTSContentPackConstructorTypes>) {
         this.packDetails = packDetails;
     }
     
@@ -21,13 +22,13 @@ export class MTSContentPack {
 export class MTSContentPackBuilder {
 
     private contentPacks: MTSContentPack[] = [];
-    private vingette: string;
+    private vingette?: string;
     name: string;
 
-    constructor(builderProps: { contentPacks: MTSContentPack[]; vingette: string, name: string }) {
+    constructor(builderProps: { contentPacks: MTSContentPack[]; vingette?: string, fileName: string }) {
         this.contentPacks = builderProps.contentPacks;
         this.vingette = builderProps.vingette;
-        this.name = builderProps.name;
+        this.name = builderProps.fileName;
     }
     
     //builds the content pack.
@@ -61,16 +62,32 @@ export class MTSContentPackBuilder {
             
             for ( let instrument of content.instruments ) {
                 //now copy the texture to the actual texture directory
+                const partName = ++counter;
+                const textureName = ++counter;
+
                 copyFileSync(
                     path.join(process.cwd(), 'packs/res', instrument.props.textureName), 
-                    path.join(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'instruments', `${++counter}.png`))
+                    path.join(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'instruments', `${textureName}.png`))
                 )
 
-                instrument.props.textureName = `instruments/${counter}.png` //rename because the reference changed.
+                instrument.props.textureName = `instruments/${textureName}.png` //rename because the reference changed.
+                //also see if the instrument has a icon property or not
+                if ( instrument.props.icon != undefined ) {
+                    
+                    //we will use part name
+                    if (!existsSync( path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'items', 'instruments') )) {
+                        mkdirSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'textures', 'items', 'instruments'), { recursive: true })
+                        //now we copy
+                        copyFileSync(
+                            path.join(process.cwd(), 'packs/res', instrument.props.icon),
+                            path.join(the_path, this.name, 'assets', content.packDetails.packId, `textures/items/instruments/${partName}.png`)
+                        )
+                    }
+
+                }
                 //write the instrument json file.
-                writeFileSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'jsondefs', 'instruments', `${++counter}.json`), JSON.stringify(instrument))
+                writeFileSync(path.join(the_path, this.name, 'assets', content.packDetails.packId, 'jsondefs', 'instruments', `${partName}.json`), JSON.stringify(instrument))
             }
-            //copy the texture from the instrument content
         }
 
     }

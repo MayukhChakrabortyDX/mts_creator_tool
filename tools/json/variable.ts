@@ -1,4 +1,5 @@
 import type { Expand } from "../util";
+import type { AnimationJSONProps } from "./animation";
 import { JSONBase } from "./base";
 
 export type VariableModifierJSONProps = {
@@ -7,6 +8,7 @@ export type VariableModifierJSONProps = {
     setValue?: number;
     minValie?: number;
     maxValue?: number;
+    animations?: AnimationJSONProps[]
     //a list of animations that I will soon cover.
 }
 

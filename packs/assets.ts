@@ -1,8 +1,9 @@
-//!DO NOT TOUCH
+/*!DO NOT TOUCH*/
 
 export type ResourceLocation =
-    never;
+    | "/gear_indicator_icon.png"
+    | "/instruments.png";
 
-export function asset<T extends ResourceLocation>(path: T): string {
+export function asset<T extends ResourceLocation>(path: T): ResourceLocation {
     return path;
 }

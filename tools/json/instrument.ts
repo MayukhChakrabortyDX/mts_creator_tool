@@ -1,3 +1,4 @@
+import type { ResourceLocation } from "@packs/assets";
 import type { Expand } from "../util";
 import type { AnimationJSON } from "./animation";
 import { JSONBase } from "./base";
@@ -13,14 +14,14 @@ export type InstrumentComponentJSONProps = {
     textureHeight: number; //?is integer
     textureWidth: number; //?is integer
     textObject?: TextJSON;
-    textFactor?: number; //TODO: If the textObject exists, then.
+    textFactor?: number; //? If the textObject exists, then textFactor should exist as well.
     rotateWindow?: boolean;
     extendWindow?: boolean;
     moveComponent?: boolean;
     lightUpTexture?: boolean;
     alwaysLit?: boolean;
     overlayTexture?: boolean;
-    animations?: AnimationJSON[]; //!is Animation, will look into it soon.
+    animations?: AnimationJSON[];
 }
 
 export class InstrumentComponentJSON extends JSONBase {
@@ -82,6 +83,7 @@ export class InstrumentComponentJSON extends JSONBase {
 //--------------------------------------------------------//
 
 export type InstrumentJSONProps = {
+    icon?: ResourceLocation; //? is not a standard property, to be used add custom item icons
     components: InstrumentComponentJSON[];
     textureName: string;
     general: GeneralJSON;
@@ -95,7 +97,7 @@ export class InstrumentJSON extends JSONBase {
 
     override toJSON() {
         return {
-            ...this.stripUndefined(this.props)
+            ...this.stripUndefined({ ...this.props, icon: undefined })
         }
     }
 
